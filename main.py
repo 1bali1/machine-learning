@@ -1,6 +1,6 @@
 import numpy
 from scipy import stats
-
+import matplotlib.pyplot as plt
 
 def getMedian(): # Dataset sorrendbe helyezett számok közepe (Ha 2 van, akkor a 2 szám átlaga a medián)
     dataset = [3, 5, 7, 1325, 4, 23, 52, 2345, 2, 0, 3]
@@ -8,6 +8,7 @@ def getMedian(): # Dataset sorrendbe helyezett számok közepe (Ha 2 van, akkor 
     median = numpy.median(dataset)
 
     print(median)
+    return median
 
 
 def getMean(): # Átlag
@@ -16,6 +17,7 @@ def getMean(): # Átlag
     mean = numpy.mean(dataset)
 
     print(mean)
+    return mean
 
 
 def getMode(): # Legtöbbet szerpelő szám
@@ -24,6 +26,7 @@ def getMode(): # Legtöbbet szerpelő szám
     mode = stats.mode(dataset)
 
     print(mode)
+    return mode
 
 def getDeviation(): # Szórás
     """
@@ -43,9 +46,9 @@ def getDeviation(): # Szórás
     
     deviation = numpy.std(dataset)
     mean = numpy.mean(dataset)
-    a = numpy.square(deviation)
     
     print("Dev: " + str(deviation) + "\nMean: " + str(mean))
+    return deviation
     
 def getVariance(): # Eltérés
     dataset = [32,111,138,28,59,77,97]
@@ -56,7 +59,7 @@ def getVariance(): # Eltérés
     deviation = numpy.std(dataset)
     
     print("Var: " + str(variance) + "\n↑ SQRT: " + str(sqrt) + "\nMean: " + str(mean) + "\nDev: " + str(deviation))
-    
+    return variance
 
 def getPercentilies(): # A dataset százalék -> hány szám van alatta és felette?
     dataset = [5,31,43,48,50,41,7,11,15,39,80,82,32,2,8,6,25,36,27,61,31] 
@@ -65,13 +68,34 @@ def getPercentilies(): # A dataset százalék -> hány szám van alatta és fele
     percentile = numpy.percentile(dataset, 75) # Szóval a dataset 75%-a 43-nál kevesebb vagy az
     
     print(percentile)
+    return percentile
     
 
 def createRandomDataset(): # Random dataset generálása
-    dataset = numpy.random.uniform(0.0, 5.0, 250)
+    dataset = numpy.random.uniform(0.0, 5.0, 100000)
 
     print(dataset)
     return dataset
 
-def drawHistogram():
-    print("folytatlás")
+def drawHistogram(): # Az átlag és szórás alapján generál grafikont
+    dataset = createRandomDataset()
+    
+    plt.hist(dataset, 100)
+    plt.savefig("histogram1.png")
+
+    
+def drawScatterPlot(): # Lineáris algebrához kelleni fog, pontokat rakunk le
+    x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
+    y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
+
+    plt.scatter(x, y)
+    plt.savefig("scatterplot.png")
+    
+def drawScatterPlotWithRandomArrays(): # Ugyanaz mint a sima, de random adatokkal
+    x = numpy.random.normal(5.0, 1.0, 1000) # Átlag, szórás, elemek száma
+    y = numpy.random.normal(10.0, 2.0, 1000)
+
+    plt.scatter(x, y)
+    plt.savefig("scatterplot2.png")
+
+drawScatterPlotWithRandomArrays()
