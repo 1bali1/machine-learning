@@ -98,4 +98,4 @@ def drawScatterPlotWithRandomArrays(): # Ugyanaz mint a sima, de random adatokka
     plt.scatter(x, y)
     plt.savefig("scatterplot2.png")
 
-drawScatterPlotWithRandomArrays()
+# Linear algebra
