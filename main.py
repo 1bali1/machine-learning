@@ -81,7 +81,7 @@ def drawHistogram(): # Az átlag és szórás alapján generál grafikont
     dataset = createRandomDataset()
     
     plt.hist(dataset, 100)
-    plt.savefig("histogram1.png")
+    plt.savefig("imgs/histogram1.png")
 
     
 def drawScatterPlot(): # Lineáris algebrához kelleni fog, pontokat rakunk le
@@ -89,13 +89,61 @@ def drawScatterPlot(): # Lineáris algebrához kelleni fog, pontokat rakunk le
     y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
 
     plt.scatter(x, y)
-    plt.savefig("scatterplot.png")
+    plt.savefig("imgs/scatterplot.png")
     
 def drawScatterPlotWithRandomArrays(): # Ugyanaz mint a sima, de random adatokkal
     x = numpy.random.normal(5.0, 1.0, 1000) # Átlag, szórás, elemek száma
     y = numpy.random.normal(10.0, 2.0, 1000)
 
     plt.scatter(x, y)
-    plt.savefig("scatterplot2.png")
+    plt.savefig("imgs/scatterplot2.png")
 
-# Linear algebra
+def linearRegression():
+    x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
+    y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
+
+    slope, intercept, r, p, std_err = stats.linregress(x, y)
+
+    def myfunc(x):
+        return slope * x + intercept
+
+    mymodel = list(map(myfunc, x))
+
+    plt.scatter(x, y)
+    plt.plot(x, mymodel)
+    plt.savefig("imgs/linearregression.png")
+    
+def predictFeature():
+    x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
+    y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
+
+    slope, intercept, r, p, std_err = stats.linregress(x, y)
+
+    def myfunc(x):
+        return slope * x + intercept
+
+    speed = myfunc(10)
+
+    print(speed)
+
+def polynomialRegression():
+    x = [1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21,22]
+    y = [100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99,100]
+
+    mymodel = numpy.poly1d(numpy.polyfit(x, y, 3))
+
+    myline = numpy.linspace(1, 22, 100)
+
+    plt.scatter(x, y)
+    plt.plot(myline, mymodel(myline))
+    plt.savefig("imgs/polynomialregression.png")
+    
+def predictFeatureWithPR():
+    x = [1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21,22]
+    y = [100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99,100]
+
+    mymodel = numpy.poly1d(numpy.polyfit(x, y, 3))
+    
+    speed = mymodel(17)
+    print(speed)
+predictFeatureWithPR()
