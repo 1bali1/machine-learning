@@ -4,8 +4,8 @@ from sklearn import linear_model
 def mp():
     df = pandas.read_csv("data/data.csv")
     
-    X = df[['Weight', 'Volume']]
-    y = df['CO2']
+    X = df[["Weight", "Volume"]]
+    y = df["CO2"]
     
     regr = linear_model.LinearRegression()
     regr.fit(X, y)
